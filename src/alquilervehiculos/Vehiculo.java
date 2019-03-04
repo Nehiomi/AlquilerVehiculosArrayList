@@ -5,6 +5,7 @@
  */
 package alquilervehiculos;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -141,11 +142,24 @@ public class Vehiculo {
             disponibilidad = false;
         }
 
-        String[] marca = {"Lexus", "Ferrari", "Maserrati", "Ford", "Renault", "Seat", "Fiat"};
-        String[] modelo = {"Marbella", "Pianto", "RSX300", "Focus", "Clio", "Marbella"};
+        ArrayList<String> marca = new ArrayList<>();
+        marca.add("Lexus");
+        marca.add("Ferrari");
+        marca.add("Maserrati");
+        marca.add("Ford");
+        marca.add("Renault");
+        marca.add("Seat");
+        
+        ArrayList<String> modelo = new ArrayList<>();
+        modelo.add("Marbella");
+        modelo.add("Pianto");
+        modelo.add("RSX300");
+        modelo.add("Laguna");
+        modelo.add("Focus");
+        modelo.add("Golf");
 
-        String marcaElegido = marca[rnd.nextInt(marca.length)];
-        String modeloElegido = modelo[rnd.nextInt(modelo.length)];
+        String marcaElegido = marca.get(rnd.nextInt(marca.size()));
+        String modeloElegido = modelo.get(rnd.nextInt(modelo.size()));
 
         Vehiculo v = new Vehiculo(Matricula, marcaElegido, modeloElegido, Color, Tarifa, disponibilidad);
         return v;
@@ -157,7 +171,5 @@ public class Vehiculo {
         return matricula + " " + marca + " " + modelo + " " + color + " " + tarifa + " " + disponible;
     }
 
-    boolean getDisponible() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 }
