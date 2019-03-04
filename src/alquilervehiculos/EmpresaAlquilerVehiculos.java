@@ -21,11 +21,12 @@ public class EmpresaAlquilerVehiculos {
     private String cif;
     private String nombre;
     private String paginaWeb;
+    private int totalClientes;
+    private int totalVehiculos;
     private List<Cliente> clientes;
     private List<Vehiculo> vehiculos;
     private List<VehiculoAlquilado> alquileres;
 
-    // Se omiten los métodos 'get' y 'set' de la clase.
     /* Constructor parametrizado donde se establece que el total de clientes
     será 50, igual que el total de vehiculos disponibles. El histórico de vehículos
     puede contener hasta 100 elementos.
@@ -200,23 +201,25 @@ public class EmpresaAlquilerVehiculos {
     }
 
     //Método que genera un cliente aleatorio
-    // Este método debería rellenar el array completo
-    // Además, si quieres rellenar a partir de la que ya hubiera, no está bien implementado
-    public void rellenarCLientes() {
+    public ArrayList<Cliente> rellenarCLientes() {
         int clientesExistentes = this.totalClientes;
-        for (int i = 0; i < this.clientes.length - clientesExistentes; i++) {
+        for (int i = 0; i < 25; i++) {
             registrarCliente(Cliente.clienteAleatorio());
+            this.totalClientes++;
         }
+        return this.clientes;
     }
 
     //Método que genera un vehiculo aleatorio
     // Este método debería rellenar el array completo
     // Además, si quieres rellenar a partir de la que ya hubiera, no está bien implementado
-    public void rellenarVehiculos() {
+    public ArrayList<Vehiculo> rellenarVehiculos() {
         int vehiculosExistentes = this.totalVehiculos;
-        for (int i = 0; i < this.vehiculos.length - vehiculosExistentes; i++) {
+        for (int i = 0; i < 25; i++) {
             registrarVehiculo(Vehiculo.vehiculoAleatorio());
+            this.totalVehiculos++;
         }
+        return this.vehiculos;
     }
 
     //Método Burbuja que ordena en el array los vehículos por matrículas.
