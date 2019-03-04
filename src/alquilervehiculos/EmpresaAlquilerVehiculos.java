@@ -7,7 +7,6 @@ package alquilervehiculos;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +22,10 @@ public class EmpresaAlquilerVehiculos {
     private String paginaWeb;
     private int totalClientes;
     private int totalVehiculos;
-    private List<Cliente> clientes;
-    private List<Vehiculo> vehiculos;
-    private List<VehiculoAlquilado> alquileres;
+    private ArrayList<Cliente> clientes;
+    private ArrayList<Vehiculo> vehiculos;
+    private ArrayList<VehiculoAlquilado> alquileres;
+
 
     /* Constructor parametrizado donde se establece que el total de clientes
     será 50, igual que el total de vehiculos disponibles. El histórico de vehículos
@@ -35,35 +35,9 @@ public class EmpresaAlquilerVehiculos {
         this.cif = cif;
         this.nombre = nombre;
         this.paginaWeb = paginaWeb;
-        this.clientes = new ArrayList<>();
-        this.vehiculos = new ArrayList<>();
-        this.alquileres = new ArrayList<>();
-    }
-
-    //Método que devuelve un vehiculo aleatorio
-    //Uso la clase Random para generar vehiculos aleatorios
-    public Vehiculo vehiculoRandom() {
-        Random aleaNum = new Random();
-
-        //Genero un número aleatorio
-        int numAlea = aleaNum.nextInt(vehiculos.length);
-        return vehiculos[numAlea];
-
-        //Devuelvo una posición del array vehiculo aleatorio comprendida entre 0 y su longitud
-        //return vehiculos[aleaNum.nextInt(vehiculos.length)];
-    }
-
-    //Método que devuelve un cliente aleatorio
-    //Uso la clase Random para generar clientes aleatorios
-    public Cliente clienteRandom() {
-        Random aleaNum = new Random();
-
-        //Genero un número aleatorio
-        int clienteAlea = aleaNum.nextInt(clientes.length);
-        return clientes[clienteAlea];
-
-        //Devuelvo una posición del array cliente aleatorio comprendida entre 0 y su longitud
-        //return vehiculos[aleaNum.nextInt(vehiculos.length)];
+        this.clientes = new ArrayList<>(50);
+        this.vehiculos = new ArrayList<>(50);
+        this.alquileres = new ArrayList<>(100);
     }
 
     // Métodos getters y setters
@@ -79,15 +53,23 @@ public class EmpresaAlquilerVehiculos {
         return paginaWeb;
     }
 
-    public List<Cliente> getClientes() {
+    public int getTotalClientes() {
+        return totalClientes;
+    }
+
+    public int getTotalVehiculos() {
+        return totalVehiculos;
+    }
+
+    public ArrayList<Cliente> getClientes() {
         return clientes;
     }
 
-    public List<Vehiculo> getVehiculos() {
+    public ArrayList<Vehiculo> getVehiculos() {
         return vehiculos;
     }
 
-    public List<VehiculoAlquilado> getAlquileres() {
+    public ArrayList<VehiculoAlquilado> getAlquileres() {
         return alquileres;
     }
 
@@ -103,26 +85,34 @@ public class EmpresaAlquilerVehiculos {
         this.paginaWeb = paginaWeb;
     }
 
-    public void setClientes(List<Cliente> clientes) {
+    public void setTotalClientes(int totalClientes) {
+        this.totalClientes = totalClientes;
+    }
+
+    public void setTotalVehiculos(int totalVehiculos) {
+        this.totalVehiculos = totalVehiculos;
+    }
+
+    public void setClientes(ArrayList<Cliente> clientes) {
         this.clientes = clientes;
     }
 
-    public void setVehiculos(List<Vehiculo> vehiculos) {
+    public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
     }
 
-    public void setAlquileres(List<VehiculoAlquilado> alquileres) {
+    public void setAlquileres(ArrayList<VehiculoAlquilado> alquileres) {
         this.alquileres = alquileres;
     }
 
     // Añade un nuevo cliente a la lista de clientes de la empresa.
-    public void registrarCliente(Cliente cliente) {
-        this.clientes.add(cliente);
+    public void registrarCliente(Cliente nuevo) {
+        this.clientes.add(nuevo);
     }
 
     // Añade un vehículo al catálogo de vehículos de la empresa.
-    public void registrarVehiculo(Vehiculo vehiculo) {
-        this.vehiculos.add(vehiculo);
+    public void registrarVehiculo(Vehiculo nuevo) {
+        this.vehiculos.add(nuevo);
     }
 
     /*
@@ -131,8 +121,8 @@ public class EmpresaAlquilerVehiculos {
      */
     public void imprimirClientes() {
         System.out.println("NIF cliente\tNombre\n");
-        for (Cliente c : this.clientes) {
-            System.out.println(c.toString());
+        for (int i = 0; i < this.totalClientes; i++) {
+            System.out.println(clientes.get(i));
         }
     }
 
@@ -142,27 +132,24 @@ public class EmpresaAlquilerVehiculos {
      */
     public void imprimirVehiculos() {
         System.out.println("Matricula\tModelo\tColor\tImporte\tDisponible\n");
-
-        for (Vehiculo v : this.vehiculos) {
-            System.out.println(v.toString());
+        for (int i = 0; i < this.totalVehiculos; i++) {
+            System.out.println(vehiculos.get(i));
         }
     }
 
     private Cliente getCliente(String nif) {
-        for (Cliente c : this.clientes) {
-            if (c.getNif().equals(nif)) {
-                return c;
+        for (int i = 0; i < this.getTotalClientes(); i++) {
+            if (this.clientes.get(i).getNif().equals(nif)) {
+                return this.clientes.get(i);
             }
         }
-
         return null;
     }
 
     private Vehiculo getVehiculo(String matricula) {
-
-        for (Vehiculo c : this.vehiculos) {
-            if (c.getMatricula().equals(matricula)) {
-                return c;
+        for (int i = 0; i < this.getTotalVehiculos(); i++) {
+            if (this.vehiculos.get(i).getMatricula().equals(matricula)) {
+                return this.vehiculos.get(i);
             }
         }
         return null;
@@ -171,8 +158,7 @@ public class EmpresaAlquilerVehiculos {
     public void alquilarVehiculo(String matricula, String nif, int dias) {
         Cliente cliente = getCliente(nif);
         Vehiculo vehiculo = getVehiculo(matricula);
-
-        if (vehiculo.getDisponible()) {
+        if (vehiculo.isDisponible()) {
             vehiculo.setDisponible(false);
             this.alquileres.add(new VehiculoAlquilado(cliente, vehiculo, diaHoy(), mesHoy(), añoHoy(), dias));
         }
@@ -193,7 +179,7 @@ public class EmpresaAlquilerVehiculos {
     }
 
     public void recibirVehiculo(String matricula) {
- 
+
         Vehiculo vehiculo = getVehiculo(matricula);
         if (vehiculo != null) {
             vehiculo.setDisponible(true);
@@ -233,7 +219,8 @@ public class EmpresaAlquilerVehiculos {
                     vehiculos.set(j, tmp);
                 }
             }
-        } return vehiculos;
+        }
+        return vehiculos;
     }
 
     //Método Burbuja que ordena en el arrayList los vehículos por matrículas.
@@ -247,53 +234,52 @@ public class EmpresaAlquilerVehiculos {
                     clientes.set(j, tmp);
                 }
             }
-        } return clientes;
+        }
+        return clientes;
     }
 
     //Método Binario para buscar un cliente
-    public int buscarCliente(String aux) {
+    public int buscarCliente(String buscado) {
         int mitad;
         int izquierda = 0;
-        int derecha = clientes.length - 1;
-        String buscado = aux;
+        int derecha = clientes.size() - 1;
         boolean encontrado = false;
         while ((izquierda <= derecha) && (!encontrado)) {
             mitad = (izquierda + derecha) / 2;
-            if (clientes[mitad].getNif().compareTo(buscado) == 0) {
+            if (clientes.get(mitad).getNif().compareTo(buscado) == 0) {
                 encontrado = true;
-                System.out.println("Se encuentra en la posición " + mitad);
+                System.out.println("Está en la posición: " + mitad);
                 return mitad;
-            } else if (clientes[mitad].getNif().compareTo(buscado) > 0) {
-                derecha = mitad - 1; //buscar en el trozo izquierdo
-            } else if (clientes[mitad].getNif().compareTo(buscado) < 0) {
-                izquierda = mitad + 1; // buscar en el trozo derecho
+            } else if (clientes.get(mitad).getNif().compareTo(buscado) > 0) {
+                derecha = mitad - 1;
+            } else if (clientes.get(mitad).getNif().compareTo(buscado) < 0) {
+                izquierda = mitad + 1;
             }
 
         }
         return -1;
-
     }
 
     //Método Binario para buscar un vehiculo
-    public int buscarVehiculo(String aux) {
+    public int buscarVehiculo(String buscado) {
         int mitad;
         int izquierda = 0;
-        int derecha = vehiculos.length - 1;
-        String buscado = aux;
+        int derecha = vehiculos.size() - 1;
         boolean encontrado = false;
         while ((izquierda <= derecha) && (!encontrado)) {
             mitad = (izquierda + derecha) / 2;
-            if (vehiculos[mitad].getMatricula().compareTo(buscado) == 0) {
+            if (vehiculos.get(mitad).getMatricula().compareTo(buscado) == 0) {
                 encontrado = true;
-                System.out.println("Se encuentra en la posición " + mitad);
+                System.out.println("Está en la posición: " + mitad);
                 return mitad;
-            } else if (vehiculos[mitad].getMatricula().compareTo(buscado) > 0) {
-                derecha = mitad - 1; //buscar en el trozo izquierdo
-            } else if (vehiculos[mitad].getMatricula().compareTo(buscado) < 0) {
-                izquierda = mitad + 1; // buscar en el trozo derecho
+            } else if (vehiculos.get(mitad).getMatricula().compareTo(buscado) > 0) {
+                derecha = mitad - 1;
+            } else if (vehiculos.get(mitad).getMatricula().compareTo(buscado) < 0) {
+                izquierda = mitad + 1;
             }
         }
         return -1;
+
     }
 
 }
