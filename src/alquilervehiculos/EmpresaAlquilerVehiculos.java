@@ -222,32 +222,32 @@ public class EmpresaAlquilerVehiculos {
         return this.vehiculos;
     }
 
-    //Método Burbuja que ordena en el array los vehículos por matrículas.
-    public void ordenarVehiculo() {
+    //Método Burbuja que ordena en el arrayList los vehículos por matrículas.
+    public ArrayList<Vehiculo> ordenarVehiculo() {
         Vehiculo tmp;
-        for (int i = 0; i < vehiculos.length - 1; i++) {
-            for (int j = i + 1; j < vehiculos.length; j++) {
-                if (vehiculos[i].getMatricula().compareTo(vehiculos[i].getMatricula()) > 0) {
-                    tmp = vehiculos[i];
-                    vehiculos[i] = vehiculos[j];
-                    vehiculos[j] = tmp;
+        for (int i = 0; i < vehiculos.size() - 1; i++) {
+            for (int j = i + 1; j < vehiculos.size(); j++) {
+                if (vehiculos.get(i).getMatricula().compareTo(vehiculos.get(j).getMatricula()) > 0) {
+                    tmp = vehiculos.get(i);
+                    vehiculos.set(i, vehiculos.get(j));
+                    vehiculos.set(j, tmp);
                 }
             }
-        }
+        } return vehiculos;
     }
 
-    //Método Burbuja que ordena en el array los vehículos por matrículas.
-    public void ordenarCliente() {
+    //Método Burbuja que ordena en el arrayList los vehículos por matrículas.
+    public ArrayList<Cliente> ordenarCliente() {
         Cliente tmp;
-        for (int i = 0; i < clientes.length - 1; i++) {
-            for (int j = i + 1; j < clientes.length; j++) {
-                if (clientes[i].getNif().compareTo(clientes[i].getNif()) > 0) {
-                    tmp = clientes[i];
-                    clientes[i] = clientes[j];
-                    clientes[j] = tmp;
+        for (int i = 0; i < clientes.size() - 1; i++) {
+            for (int j = i + 1; j < clientes.size(); j++) {
+                if (clientes.get(i).getNif().compareTo(clientes.get(j).getNif()) > 0) {
+                    tmp = clientes.get(i);
+                    clientes.set(i, clientes.get(j));
+                    clientes.set(j, tmp);
                 }
             }
-        }
+        } return clientes;
     }
 
     //Método Binario para buscar un cliente
