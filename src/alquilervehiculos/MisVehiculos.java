@@ -9,6 +9,7 @@ package alquilervehiculos;
  *
  * @author naomi
  */
+
 public class MisVehiculos {
 
     public static void main(String[] args) {

@@ -11,6 +11,7 @@ import java.util.Random;
  *
  * @author naomi
  */
+
 public class Cliente {
 
     // Atributos de la clase cliente

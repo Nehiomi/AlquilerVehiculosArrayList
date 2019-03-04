@@ -11,6 +11,7 @@ import java.util.Random;
  *
  * @author naomi
  */
+
 public class Vehiculo {
 
     // Atributos de la clase vehiculo

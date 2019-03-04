@@ -13,6 +13,7 @@ import java.util.Date;
  *
  * @author naomi
  */
+
 public class VehiculoAlquilado {
 
     // Atributos de la clase VehiculoAlquilado
